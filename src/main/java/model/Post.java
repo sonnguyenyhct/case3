@@ -7,12 +7,11 @@ public class Post {
     int idPost;
     String image;
     String content;
+    LocalDateTime timePost;
 
     public void setTimePost(LocalDateTime timePost) {
         this.timePost = timePost;
     }
-
-    LocalDateTime timePost;
 
     public Post() {
     }
@@ -45,7 +44,7 @@ public class Post {
     }
 
     public String getImage() {
-        return image;
+        return "page/images/resources/" + image;
     }
 
     public void setImage(String image) {

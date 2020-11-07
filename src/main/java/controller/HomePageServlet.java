@@ -14,11 +14,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "homepage",urlPatterns = "/home")
 public class HomePageServlet extends HttpServlet {
     UserService userService = new UserService();
     PostService postService = new PostService();
+    List<Post> postList = new ArrayList<>();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
@@ -69,6 +72,7 @@ public class HomePageServlet extends HttpServlet {
     }
     
     private void postStatus(HttpServletRequest req, HttpServletResponse resp) {
+
         String postContent = req.getParameter("postContent");
         String imagePost = req.getParameter("imagePost");
         LocalDateTime localDateTime = java.time.LocalDateTime.now();
@@ -76,14 +80,17 @@ public class HomePageServlet extends HttpServlet {
         String formattedDateTime = localDateTime.format(formatter);
         User user =  AppUtils.getLoginedUser(req.getSession());
         Post post = new Post(imagePost,postContent,localDateTime);
+        //postList.add(post);
+        postList = postService.selectAllPost();
         boolean check = postService.insertPost(post,user.getIdUser());
         RequestDispatcher rs;
-        req.setAttribute("postContent",postContent);
-        req.setAttribute("imagePost","page/images/resources/" + imagePost);
-        req.setAttribute("date",formattedDateTime);
+        //req.setAttribute("postContent",postContent);
+        //req.setAttribute("imagePost","page/images/resources/" + imagePost);
+        //req.setAttribute("date",formattedDateTime.substring(0,formattedDateTime.length()-3));
         req.setAttribute("user",user.getName());
         req.setAttribute("avatar",user.getAvatar());
-        req.setAttribute("show","");
+        //req.setAttribute("show","");
+        req.setAttribute("postList",postList);
         if (check){
             rs = req.getRequestDispatcher("page/homepage.jsp");
             try {

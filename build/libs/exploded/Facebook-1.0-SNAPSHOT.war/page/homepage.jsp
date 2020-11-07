@@ -167,14 +167,22 @@
                                         <div class="user-post">
                                             <div class="friend-info">
                                                 <figure>
-                                                    <img src="page/images/resources/friend-avatar10.jpg" alt="">
+                                                    <c:if test='${requestScope["avatar"] != null}'>
+                                                        <img src=${requestScope["avatar"]} alt="">
+                                                    </c:if>
                                                 </figure>
                                                 <div class="friend-name">
-                                                    <ins><a href="time-line.html" title="">Janice Griffith</a></ins>
-                                                    <span>published: june,2 2018 19:PM</span>
+                                                    <ins><a href="time-line.html" title=""><c:if test='${requestScope["user"] != null}'>
+                                                        ${requestScope["user"]}
+                                                        </c:if></a></ins>
+                                                    <span>published: <c:if test='${post.getTimePost() != null}'>
+                                                        <span>${post.getTimePost()}</span>
+                                                    </c:if></span>
                                                 </div>
                                                 <div class="post-meta">
-                                                    <img src="page/images/resources/112223.jpg" alt="">
+                                                    <img src="<c:if test='${post.getImage() != null}'>
+                                                             ${post.getImage()}
+                                                         </c:if>" alt="">
                                                     <div class="we-video-info">
                                                         <ul>
                                                             <li>
@@ -221,7 +229,7 @@
                                                     <div class="description">
 
                                                         <p>
-                                                            World's most beautiful car in Curabitur <a href="#" title="">#test drive booking !</a> the most beatuiful car available in america and the saudia arabia, you can book your test drive by our official website
+
                                                         </p>
                                                     </div>
                                                 </div>
@@ -229,16 +237,11 @@
                                         </div>
                                     </div>
                                 </div>--%>
-                                <div class="loadMore"
-                                <c:if test='${requestScope["show"] == null}'>
-                                     hidden
-                                </c:if>
-                                <c:if test='${requestScope["avatar"] != null}'>
-
-                                </c:if>
-                                    <div class="central-meta item">
-                                        <div class="user-post">
-                                            <div class="friend-info">
+                                <c:forEach items='${requestScope["postList"]}' var="post">
+                                    <div class="loadMore">
+                                        <div class="central-meta item">
+                                            <div class="user-post">
+                                                <div class="friend-info">
                                                 <figure>
                                                     <c:if test='${requestScope["avatar"] != null}'>
                                                         <img src=${requestScope["avatar"]} alt="">
@@ -251,13 +254,13 @@
                                                         </c:if></a>
                                                     </ins>
                                                     <span>published: </span>
-                                                    <c:if test='${requestScope["date"] != null}'>
-                                                        <span>${requestScope["date"]}</span>
+                                                    <c:if test='${post.getTimePost() != null}'>
+                                                        <span>${post.getTimePost()}</span>
                                                     </c:if>
                                                 </div>
                                                 <div class="post-meta">
-                                                    <img src=<c:if test='${requestScope["imagePost"] != null}'>
-                                                             ${requestScope["imagePost"]}
+                                                    <img src=<c:if test='${post.getImage() != null}'>
+                                                             ${post.getImage()}
                                                          </c:if> alt="">
                                                     <div class="we-video-info">
                                                         <ul>
@@ -303,8 +306,8 @@
                                                         </ul>
                                                     </div>
                                                     <div class="description">
-                                                        <p><c:if test='${requestScope["postContent"] != null}'>
-                                                            ${requestScope["postContent"]}
+                                                        <p><c:if test='${post.getContent() != null}'>
+                                                            ${post.getContent()}
                                                         </c:if></p>
                                                     </div>
                                                 </div>
@@ -312,6 +315,7 @@
                                         </div>
                                     </div>
                                 </div>
+                            </c:forEach>
 
                             </div><!-- centerl meta -->
                             <div class="col-lg-3">
@@ -338,7 +342,6 @@
                     </div>
                 </div>
             </div>
-        </div>
     </section>
     <footer>
         <div class="container">
