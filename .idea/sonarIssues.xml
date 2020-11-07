@@ -8,6 +8,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/controller/AppUtils.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/controller/HomePage.java">
           <value>
             <set />
@@ -114,6 +119,26 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/webapp/register.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SecurityWebApp/src/main/java/UserRoleRequestWrapper.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SecurityWebApp/src/main/java/servlet/AppUtils.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SecurityWebApp/src/main/java/servlet/HomeServlet.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SecurityWebApp/src/main/java/servlet/LoginServlet.java">
           <value>
             <set />
           </value>

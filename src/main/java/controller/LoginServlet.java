@@ -63,7 +63,8 @@ public class LoginServlet extends HttpServlet {
             req.setAttribute("checkUserName", "Ten dang nhap da ton tai");
         }else {
             try {
-                boolean checkRegister = userService.insertUser(new User( name,username, password, avatarCover, avatar));
+                User user = new User( name,username, password, avatarCover, avatar);
+                boolean checkRegister = userService.insertUser(user);
                 if(checkRegister){
                     req.setAttribute("checkUserName", "Tao tai khoan thanh cong");
                 }else {

@@ -16,7 +16,7 @@ public class UserService implements IUserService{
     private static final String SELECT_USER_BY_ID = "SELECT * FROM user WHERE idUser = ?;";
     private static final String CHECK_LOGIN = "SELECT * FROM user WHERE userAcc = ? and userPass = ?;";
     private static final String CHECK_USERNAME = "SELECT * FROM user WHERE userAcc = ?;";
-    private static final String SELECT_ID_USER_FOR_USERNAME = "SELECT idUser FROM user WHERE userAcc = ?;";
+    private static final String SELECT_USER_FOR_USERNAME = "SELECT * FROM user WHERE userAcc = ?;";
 
 
     private static final String SELECT_ALL_USERS = "SELECT * FROM user";
@@ -99,17 +99,24 @@ public class UserService implements IUserService{
         }
         return true;
     }
-    public int getIdFromUserName(String userName) {
+    public User getUserFromUserName(String userName) {
         try {
-            PreparedStatement ps = connection.prepareStatement(SELECT_ID_USER_FOR_USERNAME);
+            PreparedStatement ps = connection.prepareStatement(SELECT_USER_FOR_USERNAME);
             ps.setString(1,userName);
             ResultSet resultSet = ps.executeQuery();
             if (resultSet.next()){
-                return resultSet.getInt("idUser");
+                int id = resultSet.getInt("idUser");
+                String name = resultSet.getString("name");
+                String userAcc = resultSet.getString("userAcc");
+                String userPass = resultSet.getString("userPass");
+                String avatarCover = resultSet.getString("avatarCover");
+                String avatar = resultSet.getString("avatar");
+
+                return new User(id,name,userAcc,userPass,avatarCover,avatar);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return -1;
+        return null;
     }
 }

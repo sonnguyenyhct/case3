@@ -4,15 +4,17 @@ service/IUserService.java
  service.IUserService
 model/User.java
  model.User
-controller/LoginServlet.java
- controller.LoginServlet
+service/IPostService.java
+ service.IPostService
 service/UserService.java
  service.UserService
 model/Post.java
  model.Post
-service/IPostService.java
- service.IPostService
-controller/HomePageServlet.java
- controller.HomePageServlet
+controller/LoginServlet.java
+ controller.LoginServlet
+controller/AppUtils.java
+ controller.AppUtils
 service/PostService.java
  service.PostService
+controller/HomePageServlet.java
+ controller.HomePageServlet

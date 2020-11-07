@@ -11,9 +11,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class PostService implements IPostService{
-    public static void main(String[] args) {
-        System.out.println(java.time.LocalDateTime.now());
-    }
 
     Connection connection = ConnectionDB.getConnection();
     private static final String INSERT_POST_SQL = "INSERT INTO POST(idUser,image,content,timePost) values (?,?,?,?)";
@@ -49,7 +46,8 @@ public class PostService implements IPostService{
                 String image = resultSet.getString("image");
                 String content = resultSet.getString("content");
                 Date date = resultSet.getDate("timePost");
-                //return new Post(idPost,image,content,date);
+                LocalDateTime localDateTime = new java.sql.Timestamp(date.getTime()).toLocalDateTime();
+                return new Post(idPost,image,content,localDateTime);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

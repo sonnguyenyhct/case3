@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -140,7 +142,7 @@
                                             <img src="page/images/resources/admin2.jpg" alt="">
                                         </figure>
                                         <div class="newpst-input">
-                                            <form method="get" action="/home?username="${username}">
+                                            <form method="get" action="/home">
                                                 <input type="hidden" name="action" value ="post">
                                                 <textarea rows="2" placeholder="write something" name="postContent"></textarea>
                                                 <div class="attachments">
@@ -160,7 +162,7 @@
                                         </div>
                                     </div>
                                 </div><!-- add post new box -->
-                                <div class="loadMore">
+                                <%--<div class="loadMore">
                                     <div class="central-meta item">
                                         <div class="user-post">
                                             <div class="friend-info">
@@ -226,26 +228,43 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="loadMore">
+                                </div>--%>
+                                <div class="loadMore"
+                                <c:if test='${requestScope["show"] == null}'>
+                                     hidden
+                                </c:if>
+                                <c:if test='${requestScope["avatar"] != null}'>
+
+                                </c:if>
                                     <div class="central-meta item">
                                         <div class="user-post">
                                             <div class="friend-info">
                                                 <figure>
-                                                    <img src="page/images/resources/friend-avatar10.jpg" alt="">
+                                                    <c:if test='${requestScope["avatar"] != null}'>
+                                                        <img src=${requestScope["avatar"]} alt="">
+                                                    </c:if>
                                                 </figure>
                                                 <div class="friend-name">
-                                                    <ins><a href="time-line.html" title="">Janice Griffith</a></ins>
-                                                    <span>published: june,2 2018 19:PM</span>
+                                                    <ins><a href="time-line.html" title="">
+                                                        <c:if test='${requestScope["user"] != null}'>
+                                                        ${requestScope["user"]}
+                                                        </c:if></a>
+                                                    </ins>
+                                                    <span>published: </span>
+                                                    <c:if test='${requestScope["date"] != null}'>
+                                                        <span>${requestScope["date"]}</span>
+                                                    </c:if>
                                                 </div>
                                                 <div class="post-meta">
-                                                    <img src="page/images/resources/user-post.jpg" alt="">
+                                                    <img src=<c:if test='${requestScope["imagePost"] != null}'>
+                                                             ${requestScope["imagePost"]}
+                                                         </c:if> alt="">
                                                     <div class="we-video-info">
                                                         <ul>
                                                             <li>
 																<span class="like" data-toggle="tooltip" title="like">
 																	<i class="ti-heart"></i>
-																	<ins>Sá»‘ like</ins>
+																	<ins>Like</ins>
 																</span>
                                                             </li>
                                                             <li class="social-media">
@@ -284,10 +303,9 @@
                                                         </ul>
                                                     </div>
                                                     <div class="description">
-
-                                                        <p>
-                                                            World's most beautiful car in Curabitur <a href="#" title="">#test drive booking !</a> the most beatuiful car available in america and the saudia arabia, you can book your test drive by our official website
-                                                        </p>
+                                                        <p><c:if test='${requestScope["postContent"] != null}'>
+                                                            ${requestScope["postContent"]}
+                                                        </c:if></p>
                                                     </div>
                                                 </div>
                                             </div>

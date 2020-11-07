@@ -1,6 +1,7 @@
 package controller;
 
 import model.Post;
+import model.User;
 import service.PostService;
 import service.UserService;
 
@@ -11,8 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Date;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @WebServlet(name = "homepage",urlPatterns = "/home")
 public class HomePageServlet extends HttpServlet {
@@ -47,7 +48,10 @@ public class HomePageServlet extends HttpServlet {
     private void showHomePage(HttpServletRequest req, HttpServletResponse resp) {
         String username =  req.getParameter("username");
         String password =  req.getParameter("password");
-        req.setAttribute("username",username);
+
+        User user = userService.getUserFromUserName(username);
+        AppUtils.storeLoginedUser(req.getSession(),user);
+
         boolean check = userService.checkLogin(username,password);
         RequestDispatcher rs;
         if (check) {
@@ -68,9 +72,26 @@ public class HomePageServlet extends HttpServlet {
         String postContent = req.getParameter("postContent");
         String imagePost = req.getParameter("imagePost");
         LocalDateTime localDateTime = java.time.LocalDateTime.now();
-        String username =  req.getParameter("username");
-        int idUser = userService.getIdFromUserName(username);
-        postService.insertPost(new Post(imagePost,postContent,localDateTime),idUser);
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+        String formattedDateTime = localDateTime.format(formatter);
+        User user =  AppUtils.getLoginedUser(req.getSession());
+        Post post = new Post(imagePost,postContent,localDateTime);
+        boolean check = postService.insertPost(post,user.getIdUser());
+        RequestDispatcher rs;
+        req.setAttribute("postContent",postContent);
+        req.setAttribute("imagePost","page/images/resources/" + imagePost);
+        req.setAttribute("date",formattedDateTime);
+        req.setAttribute("user",user.getName());
+        req.setAttribute("avatar",user.getAvatar());
+        req.setAttribute("show","");
+        if (check){
+            rs = req.getRequestDispatcher("page/homepage.jsp");
+            try {
+                rs.forward(req, resp);
+            } catch (ServletException | IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }
