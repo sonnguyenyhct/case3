@@ -30,9 +30,11 @@ public class HomePageServlet extends HttpServlet {
         }
         switch (action){
             case "post" :
+
                 postStatus(req,resp);
                 break;
         }
+        //showHomePage(req,resp);
     }
     
     @Override
@@ -59,6 +61,7 @@ public class HomePageServlet extends HttpServlet {
         RequestDispatcher rs;
         if (check) {
             req.setAttribute("check", "Dang nhap thanh cong");
+            req.setAttribute("avatar",user.getAvatar());
             rs = req.getRequestDispatcher("page/homepage.jsp");
         }else {
             req.setAttribute("check", "Dang nhap that bai. Hay kiem tra lai");
@@ -80,8 +83,8 @@ public class HomePageServlet extends HttpServlet {
         String formattedDateTime = localDateTime.format(formatter);
         User user =  AppUtils.getLoginedUser(req.getSession());
         Post post = new Post(imagePost,postContent,localDateTime);
-        //postList.add(post);
-        postList = postService.selectAllPost();
+        postList.add(post);
+        //postList = postService.selectAllPost();
         boolean check = postService.insertPost(post,user.getIdUser());
         RequestDispatcher rs;
         //req.setAttribute("postContent",postContent);
@@ -89,7 +92,6 @@ public class HomePageServlet extends HttpServlet {
         //req.setAttribute("date",formattedDateTime.substring(0,formattedDateTime.length()-3));
         req.setAttribute("user",user.getName());
         req.setAttribute("avatar",user.getAvatar());
-        //req.setAttribute("show","");
         req.setAttribute("postList",postList);
         if (check){
             rs = req.getRequestDispatcher("page/homepage.jsp");

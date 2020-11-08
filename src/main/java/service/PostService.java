@@ -7,6 +7,7 @@ import model.User;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ public class PostService implements IPostService{
     Connection connection = ConnectionDB.getConnection();
     private static final String INSERT_POST_SQL = "INSERT INTO POST(idUser,image,content,timePost) values (?,?,?,?)";
     private static final String SELECT_POST_SQL = "SELECT * FROM post WHERE idPost = ?;";
-    private static final String SELECT_ALL_POST_SQL = "SELECT * FROM post;";
+    private static final String SELECT_ALL_POST_SQL = "SELECT * FROM post ORDER BY idPost DESC;";
     private static final String ALL_POST_SQL = "select u.avatar avt, u.name name, p.timePost time, p.image img, p.content context, count(pl.idPost) likeCount\n" +
             "from Post p\n" +
             "         left join user u on p.idUser = u.idUser\n" +
@@ -33,6 +34,9 @@ public class PostService implements IPostService{
             ps.setString(2,post.getImage());
             ps.setString(3,post.getContent());
             LocalDateTime localDateTime = LocalDateTime.now();
+            /*LocalTime localTime = localDateTime.toLocalTime();
+            java.sql.Time time = java.sql.Time.valueOf(localTime);
+            ps.setTime(4, time);*/
             LocalDate localDate = localDateTime.toLocalDate();
             java.sql.Date date = java.sql.Date.valueOf(localDate);
             ps.setDate(4, date);

@@ -55,7 +55,7 @@
                 <li><a href="newsfeed.html" title="Home" data-ripple=""><i class="ti-home"></i></a></li>
                 <li>
                     <a href="#" title="Notification" data-ripple="">
-                        <i class="ti-bell"></i><span>ThÃ´ng bÃ¡o</span>
+                        <i class="ti-bell"></i><span>Thong bao</span>
                     </a>
                     <div class="dropdowns">
                         <span>***** New Notifications</span>
@@ -77,10 +77,16 @@
                 </li>
             </ul>
             <div class="user-img">
-                <img src="page/images/resources/admin.jpg" alt="">
+                <c:if test='${requestScope["avatar"] != null}'>
+                    <img width="50px" height="50px" src=${requestScope["avatar"]} >
+                </c:if>
                 <span class="status f-online"></span>
                 <div class="user-setting">
-                    <a href="#" title=""><i class="ti-user"></i> view profile</a>
+                    <ins><a href="/personalpage" title=""><i class="ti-user"></i> view profile
+                        <c:if test='${requestScope["user"] != null}'>
+                        </c:if></a>
+                    </ins>
+                    <a href="personalpage.jsp" title=""><i class="ti-user"></i> view profile</a>
                     <a href="#" title=""><i class="ti-pencil-alt"></i>edit profile</a>
                     <a href="#" title=""><i class="ti-settings"></i>account setting</a>
                     <a href="#" title=""><i class="ti-power-off"></i>log out</a>
@@ -139,7 +145,9 @@
                                 <div class="central-meta">
                                     <div class="new-postbox">
                                         <figure>
-                                            <img src="page/images/resources/admin2.jpg" alt="">
+                                            <c:if test='${requestScope["avatar"] != null}'>
+                                                <a href="/personalpage"><img src=${requestScope["avatar"]} ></a>
+                                            </c:if>
                                         </figure>
                                         <div class="newpst-input">
                                             <form method="get" action="/home">
@@ -248,7 +256,7 @@
                                                     </c:if>
                                                 </figure>
                                                 <div class="friend-name">
-                                                    <ins><a href="time-line.html" title="">
+                                                    <ins><a href="/personalpage" title="">
                                                         <c:if test='${requestScope["user"] != null}'>
                                                         ${requestScope["user"]}
                                                         </c:if></a>

@@ -8,13 +8,17 @@ controller/LoginServlet.java
  controller.LoginServlet
 service/UserService.java
  service.UserService
-controller/AppUtils.java
- controller.AppUtils
+service/PostService.java
+ service.PostService
 model/Post.java
  model.Post
 service/IPostService.java
  service.IPostService
+controller/FriendPageServlet.java
+ controller.FriendPageServlet
+controller/AppUtils.java
+ controller.AppUtils
 controller/HomePageServlet.java
  controller.HomePageServlet
-service/PostService.java
- service.PostService
+controller/PersonalPageServlet.java
+ controller.PersonalPageServlet
