@@ -22,7 +22,7 @@
 <div class="theme-layout">
     <div class="topbar stick">
         <div class="logo">
-            <a title="" href="newsfeed.html"><img src="page/images/logo.png" alt="" style="width: 125px; height: 45px"></a>
+            <a title="" href="/home" ><img src="page/images/logo.png" alt="" style="width: 125px; height: 45px"></a>
         </div>
 
         <div class="top-area">
@@ -121,7 +121,7 @@
                                     <h5>${user.getName()}</h5>
                                 </li>
                                 <li>
-                                    <a class="" href="/homepage" title="" data-ripple="">time line</a>
+                                    <a class="" href="/personalpage" title="" data-ripple="">time line</a>
                                     <a class="" href="timeline-photos.html" title="" data-ripple="">Photos</a>
                                     <a class="" href="timeline-videos.html" title="" data-ripple="">Videos</a>
                                     <a class="" href="/friendspage" title="" data-ripple="">Friends</a>
@@ -370,7 +370,7 @@
                     <div class="widget">
                         <div class="foot-logo">
                             <div class="logo">
-                                <a href="index-2.html" title=""><img src="images/logo.png" alt=""></a>
+                                <a href="/home" name="friendBack" title="" ><img src="images/logo.png" alt=""></a>
                             </div>
                             <p>
                                 HÃ  Ná»™i

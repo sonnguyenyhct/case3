@@ -24,6 +24,8 @@ public class PersonalPageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
+        String avatarEdit = req.getParameter("avatarEdit");
+        String editCoverPhoto = req.getParameter("editCoverPhoto");
         if (action == null){
             action = "";
         }
@@ -31,6 +33,12 @@ public class PersonalPageServlet extends HttpServlet {
             default:
                 showPersonalPage(req,resp);
                 break;
+        }
+        if(avatarEdit != null){
+            editPhoto(req,resp);
+        }
+        if (editCoverPhoto != null){
+            editCoverPhoto(req,resp);
         }
 
     }
@@ -53,5 +61,34 @@ public class PersonalPageServlet extends HttpServlet {
         } catch (ServletException | IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void editPhoto(HttpServletRequest req, HttpServletResponse resp) {
+        String avatarNew = req.getParameter("avatarEdit");
+        User user = AppUtils.getLoginedUser(req.getSession());
+        user.setAvatar("page/images/resources/" + avatarNew);
+        userService.updateAvatarUser(user);
+        RequestDispatcher rs = req.getRequestDispatcher("page/personalpage.jsp");
+        try {
+            rs.forward(req, resp);
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void editCoverPhoto(HttpServletRequest req, HttpServletResponse resp) {
+        String editCoverPhoto = req.getParameter("editCoverPhoto");
+        User user = AppUtils.getLoginedUser(req.getSession());
+        if (!editCoverPhoto.equals("")){
+            user.setAvatarCover("page/images/resources/" + editCoverPhoto);
+            userService.updateCoverAvatarUser(user);
+            RequestDispatcher rs = req.getRequestDispatcher("page/personalpage.jsp");
+            try {
+                rs.forward(req, resp);
+            } catch (ServletException | IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
     }
 }

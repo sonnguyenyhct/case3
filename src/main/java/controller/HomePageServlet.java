@@ -22,19 +22,21 @@ public class HomePageServlet extends HttpServlet {
     UserService userService = new UserService();
     PostService postService = new PostService();
     List<Post> postList = new ArrayList<>();
+    User user = null;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
+
         if (action == null){
             action = "";
         }
         switch (action){
             case "post" :
-
                 postStatus(req,resp);
                 break;
+            default:
+                showHomePage(req,resp);
         }
-        //showHomePage(req,resp);
     }
     
     @Override
@@ -54,12 +56,15 @@ public class HomePageServlet extends HttpServlet {
         String username =  req.getParameter("username");
         String password =  req.getParameter("password");
 
-        User user = userService.getUserFromUserName(username);
-        AppUtils.storeLoginedUser(req.getSession(),user);
-
+        if (username != null){
+            user = userService.getUserFromUserName(username);
+            AppUtils.storeLoginedUser(req.getSession(),user);
+        }
         boolean check = userService.checkLogin(username,password);
+        User user1 = AppUtils.getLoginedUser(req.getSession());
+        boolean check1 = userService.checkLogin(user1.getUserAccount(),user1.getUserPassword());
         RequestDispatcher rs;
-        if (check) {
+        if (check || check1) {
             req.setAttribute("check", "Dang nhap thanh cong");
             req.setAttribute("avatar",user.getAvatar());
             rs = req.getRequestDispatcher("page/homepage.jsp");

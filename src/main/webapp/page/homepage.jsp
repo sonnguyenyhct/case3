@@ -80,17 +80,6 @@
                 <c:if test='${requestScope["avatar"] != null}'>
                     <img width="50px" height="50px" src=${requestScope["avatar"]} >
                 </c:if>
-                <span class="status f-online"></span>
-                <div class="user-setting">
-                    <ins><a href="/personalpage" title=""><i class="ti-user"></i> view profile
-                        <c:if test='${requestScope["user"] != null}'>
-                        </c:if></a>
-                    </ins>
-                    <a href="personalpage.jsp" title=""><i class="ti-user"></i> view profile</a>
-                    <a href="#" title=""><i class="ti-pencil-alt"></i>edit profile</a>
-                    <a href="#" title=""><i class="ti-settings"></i>account setting</a>
-                    <a href="#" title=""><i class="ti-power-off"></i>log out</a>
-                </div>
             </div>
         </div>
     </div><!-- topbar -->
@@ -108,7 +97,7 @@
                                         <ul class="naves">
                                             <li>
                                                 <i class="ti-clipboard"></i>
-                                                <a href="newsfeed.html" title="">News feed</a>
+                                                <a href="" title="">News feed</a>
                                             </li>
                                             <li>
                                                 <i class="ti-files"></i>
@@ -123,7 +112,7 @@
                                                 <a href="timeline-photos.html" title="">post</a>
                                             </li>
                                             <i class="ti-power-off"></i>
-                                            <a href="landing.html" title="">Logout</a>
+                                            <a href="/login" title="">Logout</a>
                                             </li>
                                         </ul>
                                     </div><!-- Shortcuts -->

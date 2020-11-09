@@ -17,7 +17,7 @@ public class PostService implements IPostService{
     Connection connection = ConnectionDB.getConnection();
     private static final String INSERT_POST_SQL = "INSERT INTO POST(idUser,image,content,timePost) values (?,?,?,?)";
     private static final String SELECT_POST_SQL = "SELECT * FROM post WHERE idPost = ?;";
-    private static final String SELECT_ALL_POST_SQL = "SELECT * FROM post ORDER BY idPost DESC;";
+        private static final String SELECT_ALL_POST_SQL = "SELECT * FROM post ORDER BY idPost desc;";
     private static final String ALL_POST_SQL = "select u.avatar avt, u.name name, p.timePost time, p.image img, p.content context, count(pl.idPost) likeCount\n" +
             "from Post p\n" +
             "         left join user u on p.idUser = u.idUser\n" +

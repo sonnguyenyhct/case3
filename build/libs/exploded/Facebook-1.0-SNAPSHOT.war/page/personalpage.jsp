@@ -22,7 +22,7 @@
 <div class="theme-layout">
     <div class="topbar stick">
         <div class="logo">
-            <a title="" href="newsfeed.html"><img src="page/images/logo.png" alt="" style="width: 125px; height: 45px"></a>
+            <a title="" href="/home"><img src="page/images/logo.png" alt="" style="width: 125px; height: 45px"></a>
         </div>
 
         <div class="top-area">
@@ -91,12 +91,13 @@
     <section>
         <div class="feature-photo">
             <figure><img src="${user.getAvatarCover()}" alt=""></figure>
-            <form class="edit-phto">
+            <form class="edit-phto" method="get" action="/personalpage">
                 <i class="fa fa-camera-retro"></i>
                 <label class="fileContainer">
                     Edit Cover Photo
-                    <input type="file"/>
+                    <input type="file" name="editCoverPhoto"/>
                 </label>
+                    <input type="submit" value="Submit">
             </form>
             <div class="container-fluid">
                 <div class="row merged">
@@ -104,12 +105,13 @@
                         <div class="user-avatar">
                             <figure>
                                 <img src="${user.getAvatar()}" alt="">
-                                <form class="edit-phto">
+                                <form class="edit-phto" action="/personalpage" method="get">
                                     <i class="fa fa-camera-retro"></i>
                                     <label class="fileContainer">
                                         Edit Display Photo
-                                        <input type="file"/>
+                                        <input type="file" name="avatarEdit"/>
                                     </label>
+                                        <input type="submit" value="Submit">
                                 </form>
                             </figure>
                         </div>
@@ -121,7 +123,7 @@
                                     <h5>${user.getName()}</h5>
                                 </li>
                                 <li>
-                                    <a class="" href="time-line.html" title="" data-ripple="">time line</a>
+                                    <a class="" href="/personalpage" title="" data-ripple="">time line</a>
                                     <a class="" href="timeline-photos.html" title="" data-ripple="">Photos</a>
                                     <a class="" href="timeline-videos.html" title="" data-ripple="">Videos</a>
                                     <a class="" href="/friendspage" title="" data-ripple="">Friends</a>
@@ -225,10 +227,12 @@
                                                             </c:if></a>
                                                         </ins>
                                                         <span>published: </span>
+                                                        <button style="margin-left: 500px; position: relative" >Edit</button>
                                                         <c:if test='${post.getTimePost() != null}'>
                                                             <span>${post.getTimePost()}</span>
                                                         </c:if>
                                                     </div>
+
                                                     <div class="post-meta">
                                                         <img src=<c:if test='${post.getImage() != null}'>
                                                                  ${post.getImage()}
@@ -322,7 +326,7 @@
                     <div class="widget">
                         <div class="foot-logo">
                             <div class="logo">
-                                <a href="index-2.html" title=""><img src="page/images/logo.png" alt=""></a>
+                                <a href="/home" title=""><img src="page/images/logo.png" alt=""></a>
                             </div>
                             <p>
                                 HÃ  Ná»™i

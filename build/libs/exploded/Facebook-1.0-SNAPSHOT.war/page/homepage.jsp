@@ -86,7 +86,7 @@
                         <c:if test='${requestScope["user"] != null}'>
                         </c:if></a>
                     </ins>
-                    <a href="personalpage.jsp" title=""><i class="ti-user"></i> view profile</a>
+                    <a href="https://www.w3schools.com" title=""><i class="ti-user"></i> view profile</a>
                     <a href="#" title=""><i class="ti-pencil-alt"></i>edit profile</a>
                     <a href="#" title=""><i class="ti-settings"></i>account setting</a>
                     <a href="#" title=""><i class="ti-power-off"></i>log out</a>
@@ -108,7 +108,7 @@
                                         <ul class="naves">
                                             <li>
                                                 <i class="ti-clipboard"></i>
-                                                <a href="newsfeed.html" title="">News feed</a>
+                                                <a href="" title="">News feed</a>
                                             </li>
                                             <li>
                                                 <i class="ti-files"></i>

@@ -17,6 +17,8 @@ public class UserService implements IUserService{
     private static final String CHECK_LOGIN = "SELECT * FROM user WHERE userAcc = ? and userPass = ?;";
     private static final String CHECK_USERNAME = "SELECT * FROM user WHERE userAcc = ?;";
     private static final String SELECT_USER_FOR_USERNAME = "SELECT * FROM user WHERE userAcc = ?;";
+    private static final String UPDATE_AVATAR_USER = "UPDATE user SET avatar = ? WHERE idUser = ?;";
+    private static final String UPDATE_COVER_AVATAR_USER = "UPDATE user SET avatarCover = ? WHERE idUser = ?;";
 
 
     private static final String SELECT_ALL_USERS = "SELECT * FROM user";
@@ -118,5 +120,33 @@ public class UserService implements IUserService{
             throwables.printStackTrace();
         }
         return null;
+    }
+    public boolean updateAvatarUser(User user){
+        int check = 0;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_AVATAR_USER);
+            preparedStatement.setString(1, user.getAvatar());
+            preparedStatement.setInt(2,user.getIdUser());
+
+            check = preparedStatement.executeUpdate();
+            return check > 0;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+    public boolean updateCoverAvatarUser(User user){
+        int check = 0;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_COVER_AVATAR_USER);
+            preparedStatement.setString(1, user.getAvatarCover());
+            preparedStatement.setInt(2,user.getIdUser());
+
+            check = preparedStatement.executeUpdate();
+            return check > 0;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
     }
 }

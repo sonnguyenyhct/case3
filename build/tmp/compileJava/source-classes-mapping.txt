@@ -4,21 +4,23 @@ service/IUserService.java
  service.IUserService
 model/User.java
  model.User
-controller/LoginServlet.java
- controller.LoginServlet
-service/UserService.java
- service.UserService
-service/PostService.java
- service.PostService
-model/Post.java
- model.Post
 service/IPostService.java
  service.IPostService
-controller/FriendPageServlet.java
- controller.FriendPageServlet
+service/UserService.java
+ service.UserService
 controller/AppUtils.java
  controller.AppUtils
+model/Post.java
+ model.Post
+controller/FriendPageServlet.java
+ controller.FriendPageServlet
+model/Friend.java
+ model.Friend
+controller/LoginServlet.java
+ controller.LoginServlet
 controller/HomePageServlet.java
  controller.HomePageServlet
+service/PostService.java
+ service.PostService
 controller/PersonalPageServlet.java
  controller.PersonalPageServlet
