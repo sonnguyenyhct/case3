@@ -63,10 +63,14 @@ public class HomePageServlet extends HttpServlet {
         boolean check = userService.checkLogin(username,password);
         User user1 = AppUtils.getLoginedUser(req.getSession());
         boolean check1 = userService.checkLogin(user1.getUserAccount(),user1.getUserPassword());
+        User user =  AppUtils.getLoginedUser(req.getSession());
+        postList = postService.selectAllPostHome();
         RequestDispatcher rs;
         if (check || check1) {
             req.setAttribute("check", "Dang nhap thanh cong");
+            req.setAttribute("user",user.getName());
             req.setAttribute("avatar",user.getAvatar());
+            req.setAttribute("postList",postList);
             rs = req.getRequestDispatcher("page/homepage.jsp");
         }else {
             req.setAttribute("check", "Dang nhap that bai. Hay kiem tra lai");
@@ -87,10 +91,12 @@ public class HomePageServlet extends HttpServlet {
         DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
         String formattedDateTime = localDateTime.format(formatter);
         User user =  AppUtils.getLoginedUser(req.getSession());
+
         Post post = new Post(imagePost,postContent,localDateTime);
-        postList.add(post);
+        //postList.add(post);
         //postList = postService.selectAllPost();
         boolean check = postService.insertPost(post,user.getIdUser());
+        postList = postService.selectAllPostHome();
         RequestDispatcher rs;
         //req.setAttribute("postContent",postContent);
         //req.setAttribute("imagePost","page/images/resources/" + imagePost);

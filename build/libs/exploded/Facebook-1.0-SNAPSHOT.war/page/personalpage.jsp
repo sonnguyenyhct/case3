@@ -228,9 +228,7 @@
                                                         </ins>
                                                         <span>published: </span>
                                                         <button style="margin-left: 500px; position: relative" >Edit</button>
-                                                        <c:if test='${post.getTimePost() != null}'>
                                                             <span>${post.getTimePost()}</span>
-                                                        </c:if>
                                                     </div>
 
                                                     <div class="post-meta">

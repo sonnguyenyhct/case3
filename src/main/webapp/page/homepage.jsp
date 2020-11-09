@@ -240,25 +240,23 @@
                                             <div class="user-post">
                                                 <div class="friend-info">
                                                 <figure>
-                                                    <c:if test='${requestScope["avatar"] != null}'>
-                                                        <img src=${requestScope["avatar"]} alt="">
+                                                    <c:if test='${post.getAvatar() != null}'>
+                                                        <img src=${post.getAvatar()} alt="">
                                                     </c:if>
                                                 </figure>
                                                 <div class="friend-name">
-                                                    <ins><a href="/personalpage" title="">
-                                                        <c:if test='${requestScope["user"] != null}'>
-                                                        ${requestScope["user"]}
-                                                        </c:if></a>
-                                                    </ins>
+                                                        <ins><a href="/personalpage?action=${post.getIdUser()}" title="">
+                                                                ${post.getUserName()}
+                                                        </ins>
                                                     <span>published: </span>
                                                     <c:if test='${post.getTimePost() != null}'>
                                                         <span>${post.getTimePost()}</span>
                                                     </c:if>
                                                 </div>
                                                 <div class="post-meta">
-                                                    <img src=<c:if test='${post.getImage() != null}'>
-                                                             ${post.getImage()}
-                                                         </c:if> alt="">
+                                                    <c:if test='${post.getImage() != null}'>
+                                                    <img src=${post.getImage()}
+                                                          alt=""></c:if>
                                                     <div class="we-video-info">
                                                         <ul>
                                                             <li>

@@ -80,17 +80,6 @@
                 <c:if test='${requestScope["avatar"] != null}'>
                     <img width="50px" height="50px" src=${requestScope["avatar"]} >
                 </c:if>
-                <span class="status f-online"></span>
-                <div class="user-setting">
-                    <ins><a href="/personalpage" title=""><i class="ti-user"></i> view profile
-                        <c:if test='${requestScope["user"] != null}'>
-                        </c:if></a>
-                    </ins>
-                    <a href="https://www.w3schools.com" title=""><i class="ti-user"></i> view profile</a>
-                    <a href="#" title=""><i class="ti-pencil-alt"></i>edit profile</a>
-                    <a href="#" title=""><i class="ti-settings"></i>account setting</a>
-                    <a href="#" title=""><i class="ti-power-off"></i>log out</a>
-                </div>
             </div>
         </div>
     </div><!-- topbar -->
@@ -123,7 +112,7 @@
                                                 <a href="timeline-photos.html" title="">post</a>
                                             </li>
                                             <i class="ti-power-off"></i>
-                                            <a href="landing.html" title="">Logout</a>
+                                            <a href="/login" title="">Logout</a>
                                             </li>
                                         </ul>
                                     </div><!-- Shortcuts -->
@@ -251,25 +240,23 @@
                                             <div class="user-post">
                                                 <div class="friend-info">
                                                 <figure>
-                                                    <c:if test='${requestScope["avatar"] != null}'>
-                                                        <img src=${requestScope["avatar"]} alt="">
+                                                    <c:if test='${post.getAvatar() != null}'>
+                                                        <img src=${post.getAvatar()} alt="">
                                                     </c:if>
                                                 </figure>
                                                 <div class="friend-name">
-                                                    <ins><a href="/personalpage" title="">
-                                                        <c:if test='${requestScope["user"] != null}'>
-                                                        ${requestScope["user"]}
-                                                        </c:if></a>
-                                                    </ins>
+                                                        <ins><a href="/personalpage?action=${post.getIdUser()}" title="">
+                                                                ${post.getUserName()}
+                                                        </ins>
                                                     <span>published: </span>
                                                     <c:if test='${post.getTimePost() != null}'>
                                                         <span>${post.getTimePost()}</span>
                                                     </c:if>
                                                 </div>
                                                 <div class="post-meta">
-                                                    <img src=<c:if test='${post.getImage() != null}'>
-                                                             ${post.getImage()}
-                                                         </c:if> alt="">
+                                                    <c:if test='${post.getImage() != null}'>
+                                                    <img src=${post.getImage()}
+                                                          alt=""></c:if>
                                                     <div class="we-video-info">
                                                         <ul>
                                                             <li>

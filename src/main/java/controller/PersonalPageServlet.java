@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 @WebServlet(urlPatterns = "/personalpage")
@@ -23,17 +24,23 @@ public class PersonalPageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String action = req.getParameter("action");
+        int action = Integer.parseInt(req.getParameter("action"));
         String avatarEdit = req.getParameter("avatarEdit");
         String editCoverPhoto = req.getParameter("editCoverPhoto");
-        if (action == null){
-            action = "";
+        int check = AppUtils.getLoginedUser(req.getSession()).getIdUser();
+        if (check == action){
+            showPersonalPage(req,resp);
+        }else {
+            RequestDispatcher rs = req.getRequestDispatcher("page/viewfriendpage.jsp");
+            try {
+                rs.forward(req,resp);
+            } catch (ServletException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        switch (action){
-            default:
-                showPersonalPage(req,resp);
-                break;
-        }
+
         if(avatarEdit != null){
             editPhoto(req,resp);
         }
@@ -50,7 +57,9 @@ public class PersonalPageServlet extends HttpServlet {
 
     private void showPersonalPage(HttpServletRequest req, HttpServletResponse resp) {
         RequestDispatcher rs = req.getRequestDispatcher("page/personalpage.jsp");
-        postList = postService.selectAllPost();
+        int idUser = AppUtils.getLoginedUser(req.getSession()).getIdUser();
+        postList = postService.selectAllPostPersonal(idUser);
+
         User user = AppUtils.getLoginedUser(req.getSession());
         req.setAttribute("user",user);
         req.setAttribute("userName",user.getName());
