@@ -97,7 +97,7 @@
                     Edit Cover Photo
                     <input type="file" name="editCoverPhoto"/>
                 </label>
-                    <input type="submit" value="Submit">
+                <input type="submit" value="Submit">
             </form>
             <div class="container-fluid">
                 <div class="row merged">
@@ -111,7 +111,7 @@
                                         Edit Display Photo
                                         <input type="file" name="avatarEdit"/>
                                     </label>
-                                        <input type="submit" value="Submit">
+                                    <input type="submit" value="Submit">
                                 </form>
                             </figure>
                         </div>
@@ -228,7 +228,7 @@
                                                         </ins>
                                                         <span>published: </span>
                                                         <button style="margin-left: 500px; position: relative" >Edit</button>
-                                                            <span>${post.getTimePost()}</span>
+                                                        <span>${post.getTimePost()}</span>
                                                     </div>
 
                                                     <div class="post-meta">
@@ -327,13 +327,13 @@
                                 <a href="/home" title=""><img src="page/images/logo.png" alt=""></a>
                             </div>
                             <p>
-                                HÃ  Ná»™i
+                                HÃ  Ná»™i
                             </p>
                         </div>
                         <ul class="location">
                             <li>
                                 <i class="ti-map-alt"></i>
-                                <p>HÃ  Ná»™i</p>
+                                <p>HÃ  Ná»™i</p>
                             </li>
                             <li>
                                 <i class="ti-mobile"></i>

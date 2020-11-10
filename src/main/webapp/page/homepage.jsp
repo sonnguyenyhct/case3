@@ -135,7 +135,7 @@
                                     <div class="new-postbox">
                                         <figure>
                                             <c:if test='${requestScope["avatar"] != null}'>
-                                                <a href="/personalpage"><img src=${requestScope["avatar"]} ></a>
+                                                <a href="/personalpage?action=${requestScope["userID"]}"><img src=${requestScope["avatar"]} ></a>
                                             </c:if>
                                         </figure>
                                         <div class="newpst-input">
@@ -245,10 +245,11 @@
                                                     </c:if>
                                                 </figure>
                                                 <div class="friend-name">
+
                                                         <ins><a href="/personalpage?action=${post.getIdUser()}" title="">
                                                                 ${post.getUserName()}
                                                         </ins>
-                                                    <span>published: </span>
+                                                    <span>published: </span
                                                     <c:if test='${post.getTimePost() != null}'>
                                                         <span>${post.getTimePost()}</span>
                                                     </c:if>

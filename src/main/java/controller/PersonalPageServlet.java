@@ -2,6 +2,7 @@ package controller;
 
 import model.Post;
 import model.User;
+import service.FriendService;
 import service.PostService;
 import service.UserService;
 
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -21,6 +23,7 @@ public class PersonalPageServlet extends HttpServlet {
     UserService userService = new UserService();
     PostService postService = new PostService();
     List<Post> postList = new ArrayList<>();
+    FriendService friendService = new FriendService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,6 +34,12 @@ public class PersonalPageServlet extends HttpServlet {
         if (check == action){
             showPersonalPage(req,resp);
         }else {
+            User user = userService.selectUser(action);
+            postList = postService.selectAllPostPersonal(action);
+            req.setAttribute("user",user);
+            req.setAttribute("userName",user.getName());
+            req.setAttribute("avatar",user.getAvatar());
+            req.setAttribute("postList",postList);
             RequestDispatcher rs = req.getRequestDispatcher("page/viewfriendpage.jsp");
             try {
                 rs.forward(req,resp);
@@ -52,7 +61,8 @@ public class PersonalPageServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        addFriend(req,resp);
+        showViewFriend(req,resp);
     }
 
     private void showPersonalPage(HttpServletRequest req, HttpServletResponse resp) {
@@ -99,5 +109,31 @@ public class PersonalPageServlet extends HttpServlet {
         }
 
 
+    }
+    private void addFriend(HttpServletRequest req, HttpServletResponse resp) {
+        int idFriend = Integer.parseInt(req.getParameter("action"));
+        int idUser = AppUtils.getLoginedUser(req.getSession()).getIdUser();
+        try {
+            friendService.makeFriend(idFriend,idUser);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    private void showViewFriend(HttpServletRequest req, HttpServletResponse resp) {
+        int action = Integer.parseInt(req.getParameter("action"));
+        User user = userService.selectUser(action);
+        postList = postService.selectAllPostPersonal(action);
+        req.setAttribute("user",user);
+        req.setAttribute("userName",user.getName());
+        req.setAttribute("avatar",user.getAvatar());
+        req.setAttribute("postList",postList);
+        RequestDispatcher rs = req.getRequestDispatcher("page/viewfriendpage.jsp");
+        try {
+            rs.forward(req,resp);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

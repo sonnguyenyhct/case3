@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +22,7 @@
 <div class="theme-layout">
     <div class="topbar stick">
         <div class="logo">
-            <a title="" href="newsfeed.html"><img src="page/images/logo.png" alt="" style="width: 125px; height: 45px"></a>
+            <a title="" href="/home"><img src="page/images/logo.png" alt="" style="width: 125px; height: 45px"></a>
         </div>
 
         <div class="top-area">
@@ -88,29 +90,35 @@
     </div><!-- topbar -->
     <section>
         <div class="feature-photo">
-            <figure><img src="page/images/resources/timeline-1.jpg" alt=""></figure>
             <div class="add-btn">
-                <a href="#" title="" data-ripple="">Add Friend</a>
+                <form method="post" action="/personalpage?action=<%= request.getParameter("action") %>">
+                    <input type="hidden" name="action" value="<%= request.getParameter("action") %>">
+                    <button type="submit">Add Friend</button>
+                    <%--                    <button href="/personalpage?action=<%= request.getParameter("action") %>" title="" data-ripple="">Add Friend</button>--%>
+                </form>
             </div>
-            <form class="edit-phto">
+            <figure><img src="${user.getAvatarCover()}" alt=""></figure>
+            <form class="edit-phto" method="get" action="/personalpage">
                 <i class="fa fa-camera-retro"></i>
                 <label class="fileContainer">
                     Edit Cover Photo
-                    <input type="file"/>
+                    <input type="file" name="editCoverPhoto"/>
                 </label>
+                <input type="submit" value="Submit">
             </form>
             <div class="container-fluid">
                 <div class="row merged">
                     <div class="col-lg-2 col-sm-3">
                         <div class="user-avatar">
                             <figure>
-                                <img src="page/images/resources/user-avatar.jpg" alt="">
-                                <form class="edit-phto">
+                                <img src="${user.getAvatar()}" alt="">
+                                <form class="edit-phto" action="/personalpage" method="get">
                                     <i class="fa fa-camera-retro"></i>
                                     <label class="fileContainer">
                                         Edit Display Photo
-                                        <input type="file"/>
+                                        <input type="file" name="avatarEdit"/>
                                     </label>
+                                    <input type="submit" value="Submit">
                                 </form>
                             </figure>
                         </div>
@@ -119,13 +127,13 @@
                         <div class="timeline-info">
                             <ul>
                                 <li class="admin-name">
-                                    <h5>Janice Griffith</h5>
+                                    <h5>${user.getName()}</h5>
                                 </li>
                                 <li>
-                                    <a class="" href="time-line.html" title="" data-ripple="">time line</a>
+                                    <a class="" href="/personalpage" title="" data-ripple="">time line</a>
                                     <a class="" href="timeline-photos.html" title="" data-ripple="">Photos</a>
                                     <a class="" href="timeline-videos.html" title="" data-ripple="">Videos</a>
-                                    <a class="" href="timeline-friends.html" title="" data-ripple="">Friends</a>
+                                    <a class="" href="/friendspage" title="" data-ripple="">Friends</a>
                                     <a class="" href="timeline-groups.html" title="" data-ripple="">Groups</a>
                                     <a class="" href="about.html" title="" data-ripple="">about</a>
                                     <a class="" href="#" title="" data-ripple="">more</a>
@@ -187,7 +195,7 @@
                                 <div class="central-meta">
                                     <div class="new-postbox">
                                         <figure>
-                                            <img src="page/images/resources/admin2.jpg" alt="">
+                                            <img src="${user.getAvatar()}" alt="">
                                         </figure>
                                         <div class="newpst-input">
                                             <form method="post">
@@ -209,140 +217,85 @@
                                         </div>
                                     </div>
                                 </div><!-- add post new box -->
-                                <div class="loadMore">
-                                    <div class="central-meta item">
-                                        <div class="user-post">
-                                            <div class="friend-info">
-                                                <figure>
-                                                    <img src="page/images/resources/112223.jpg" alt="">
-                                                </figure>
-                                                <div class="friend-name">
-                                                    <ins><a href="time-line.html" title="">Janice Griffith</a></ins>
-                                                    <span>published: june,2 2018 19:PM</span>
-                                                </div>
-                                                <div class="post-meta">
-                                                    <img src="page/images/resources/user-post.jpg" alt="">
-                                                    <div class="we-video-info">
-                                                        <ul>
-                                                            <li>
+                                <c:forEach items='${requestScope["postList"]}' var="post">
+                                    <div class="loadMore">
+                                        <div class="central-meta item">
+                                            <div class="user-post">
+                                                <div class="friend-info">
+                                                    <figure>
+                                                        <c:if test='${requestScope["avatar"] != null}'>
+                                                            <img src=${requestScope["avatar"]} alt="">
+                                                        </c:if>
+                                                    </figure>
+                                                    <div class="friend-name">
+                                                        <ins><a href="/personalpage" title="">
+                                                            <c:if test='${requestScope["userName"] != null}'>
+                                                                ${requestScope["userName"]}
+                                                            </c:if></a>
+                                                        </ins>
+                                                        <span>published: </span>
+                                                        <button style="margin-left: 500px; position: relative" >Edit</button>
+                                                        <span>${post.getTimePost()}</span>
+                                                    </div>
+
+                                                    <div class="post-meta">
+                                                        <img src=<c:if test='${post.getImage() != null}'>
+                                                                 ${post.getImage()}
+                                                             </c:if> alt="">
+                                                        <div class="we-video-info">
+                                                            <ul>
+                                                                <li>
 																<span class="like" data-toggle="tooltip" title="like">
 																	<i class="ti-heart"></i>
-																	<ins>Sá»‘ like</ins>
+																	<ins>Like</ins>
 																</span>
-                                                            </li>
-                                                            <li class="social-media">
-                                                                <div class="menu">
-                                                                    <div class="btn trigger"><i class="fa fa-share-alt"></i></div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
+                                                                </li>
+                                                                <li class="social-media">
+                                                                    <div class="menu">
+                                                                        <div class="btn trigger"><i class="fa fa-share-alt"></i></div>
+                                                                        <div class="rotater">
+                                                                            <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
+                                                                        <div class="rotater">
+                                                                            <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
+                                                                        <div class="rotater">
+                                                                            <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
                                                                         </div>
-                                                                    </div>
+                                                                        <div class="rotater">
+                                                                            <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
+                                                                        </div>
+                                                                        <div class="rotater">
+                                                                            <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
+                                                                        </div>
+                                                                        <div class="rotater">
+                                                                            <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rotater">
+                                                                            <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="rotater">
+                                                                            <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
+                                                                            </div>
+                                                                        </div>
 
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="description">
-
-                                                        <p>
-                                                            World's most beautiful car in Curabitur <a href="#" title="">#test drive booking !</a> the most beatuiful car available in america and the saudia arabia, you can book your test drive by our official website
-                                                        </p>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="description">
+                                                            <p><c:if test='${post.getContent() != null}'>
+                                                                ${post.getContent()}
+                                                            </c:if></p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="loadMore">
-                                    <div class="central-meta item">
-                                        <div class="user-post">
-                                            <div class="friend-info">
-                                                <figure>
-                                                    <img src="page/images/resources/friend-avatar10.jpg" alt="">
-                                                </figure>
-                                                <div class="friend-name">
-                                                    <ins><a href="time-line.html" title="">Janice Griffith</a></ins>
-                                                    <span>published: june,2 2018 19:PM</span>
-                                                </div>
-                                                <div class="post-meta">
-                                                    <img src="page/images/resources/112223.jpg" alt="">
-                                                    <div class="we-video-info">
-                                                        <ul>
-                                                            <li>
-																<span class="like" data-toggle="tooltip" title="like">
-																	<i class="ti-heart"></i>
-																	<ins>Sá»‘ like</ins>
-																</span>
-                                                            </li>
-                                                            <li class="social-media">
-                                                                <div class="menu">
-                                                                    <div class="btn trigger"><i class="fa fa-share-alt"></i></div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="description">
-
-                                                        <p>
-                                                            World's most beautiful car in Curabitur <a href="#" title="">#test drive booking !</a> the most beatuiful car available in america and the saudia arabia, you can book your test drive by our official website
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                </c:forEach>
 
                             </div><!-- centerl meta -->
                             <div class="col-lg-3">
@@ -378,16 +331,16 @@
                     <div class="widget">
                         <div class="foot-logo">
                             <div class="logo">
-                                <a href="index-2.html" title=""><img src="page/images/logo.png" alt=""></a>
+                                <a href="/home" title=""><img src="page/images/logo.png" alt=""></a>
                             </div>
                             <p>
-                                HÃ  Ná»™i
+                                HÃ  Ná»™i
                             </p>
                         </div>
                         <ul class="location">
                             <li>
                                 <i class="ti-map-alt"></i>
-                                <p>HÃ  Ná»™i</p>
+                                <p>HÃ  Ná»™i</p>
                             </li>
                             <li>
                                 <i class="ti-mobile"></i>

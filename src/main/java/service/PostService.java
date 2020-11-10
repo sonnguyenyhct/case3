@@ -102,6 +102,7 @@ public class PostService implements IPostService {
             PreparedStatement ps = connection.prepareStatement(SELECT_ALL_POST_PERSONAL_SQL);
             ps.setInt(1,idUser);
             ResultSet resultSet = ps.executeQuery();
+
             while (resultSet.next()) {
                 Integer idPost = resultSet.getInt("idPost");
                 String avatar = resultSet.getString("avt");

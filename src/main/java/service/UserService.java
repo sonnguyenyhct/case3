@@ -121,6 +121,26 @@ public class UserService implements IUserService{
         }
         return null;
     }
+    public User getUserFromUserId(int idUser) {
+        try {
+            PreparedStatement ps = connection.prepareStatement(SELECT_USER_FOR_USERNAME);
+            ps.setInt(1,idUser);
+            ResultSet resultSet = ps.executeQuery();
+            if (resultSet.next()){
+                int id = resultSet.getInt("idUser");
+                String name = resultSet.getString("name");
+                String userAcc = resultSet.getString("userAcc");
+                String userPass = resultSet.getString("userPass");
+                String avatarCover = resultSet.getString("avatarCover");
+                String avatar = resultSet.getString("avatar");
+
+                return new User(id,name,userAcc,userPass,avatarCover,avatar);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
     public boolean updateAvatarUser(User user){
         int check = 0;
         try {

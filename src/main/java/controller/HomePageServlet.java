@@ -70,6 +70,7 @@ public class HomePageServlet extends HttpServlet {
             req.setAttribute("check", "Dang nhap thanh cong");
             req.setAttribute("user",user.getName());
             req.setAttribute("avatar",user.getAvatar());
+            req.setAttribute("userID",user.getIdUser());
             req.setAttribute("postList",postList);
             rs = req.getRequestDispatcher("page/homepage.jsp");
         }else {

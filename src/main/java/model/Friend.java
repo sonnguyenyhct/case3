@@ -1,40 +1,42 @@
 package model;
 
 public class Friend {
-    int idReceiver;
-    int idSender;
-    String status;
+    int idFriend;
+    String avatarFriend;
+    String friendName;
 
-    public Friend() {
+    public Friend(String avatarFriend, String friendName) {
+        this.avatarFriend = avatarFriend;
+        this.friendName = friendName;
     }
 
-    public Friend(int idReceiver, int idSender, String status) {
-        this.idReceiver = idReceiver;
-        this.idSender = idSender;
-        this.status = status;
+    public Friend(int idFriend, String avatarFriend, String friendName) {
+        this.idFriend = idFriend;
+        this.avatarFriend = avatarFriend;
+        this.friendName = friendName;
     }
 
-    public int getIdReceiver() {
-        return idReceiver;
+    public int getIdFriend() {
+        return idFriend;
     }
 
-    public void setIdReceiver(int idReceiver) {
-        this.idReceiver = idReceiver;
+    public void setIdFriend(int idFriend) {
+        this.idFriend = idFriend;
     }
 
-    public int getIdSender() {
-        return idSender;
+    public String getAvatarFriend() {
+        return avatarFriend;
     }
 
-    public void setIdSender(int idSender) {
-        this.idSender = idSender;
+    public void setAvatarFriend(String avatarFriend) {
+        this.avatarFriend = avatarFriend;
     }
 
-    public String getStatus() {
-        return status;
+    public String getFriendName() {
+        return friendName;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setFriendName(String friendName) {
+        this.friendName = friendName;
     }
 }
